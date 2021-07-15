@@ -12,7 +12,7 @@
     <h1>ハナエラビ</h1>
   </head>
   <main>
-    <a href="season.php">はじめる</a>
+    <a href="seasons/season.php">はじめる</a>
   </main>
 </body>
 </html>
