@@ -1,11 +1,5 @@
 <?php
 
-// $seasons = [
-//   '春' => 'spring.php',
-//   '夏' => 'summer.php',
-//   '秋' => 'autumn.php',
-//   '冬' => 'winter.php'
-// ];
 $seasons = ['春', '夏', '秋', '冬'];
 
 ?>
@@ -24,8 +18,8 @@ $seasons = ['春', '夏', '秋', '冬'];
   <main>
     <?php foreach ($seasons as $season): ?>
       <form action="../meaning/meaning.php" method="get">
-        <input type="hidden" name="season" value="<?php echo $season; ?>">
-        <input type="submit" value="<?php echo $season; ?>" >
+        <input type="hidden" name="season" value="<?php echo htmlspecialchars($season, ENT_QUOTES); ?>">
+        <input type="submit" value="<?php echo htmlspecialchars($season, ENT_QUOTES); ?>" >
       </form>
     <?php endforeach; ?>
   </main>
