@@ -3,8 +3,18 @@
 require('../../app/db/dbconnect.php');
 
 if ($_GET['flower_id']) {
-  $flowers = $db->prepare('SELECT * FROM flowers JOIN seasons ON flowers.season_id = seasons.id WHERE flowers.id =:flower_num');
+  $flowers = $db->prepare(
+    'SELECT seasons.season, flowers.name, flowers.image, GROUP_CONCAT(meanings.meaning)
+     FROM `seasons`
+     JOIN categorization ON seasons.id = categorization.season_id
+     JOIN flowers ON categorization.flower_id = flowers.id
+     JOIN language ON flowers.id = language.flower_id
+     JOIN meanings ON language.meaning_id = meanings.id
+     GROUP BY flowers.id, seasons.season
+     HAVING flowers.id = :flower_num AND seasons.season = :season_name'
+  );
   $flowers->bindValue(':flower_num', $_GET['flower_id'], PDO::PARAM_INT);
+  $flowers->bindValue(':season_name', $_GET['season'], PDO::PARAM_STR);
   $flowers->execute();
 }
 
@@ -29,7 +39,7 @@ if ($_GET['flower_id']) {
     <div>
       <?php foreach($flowers as $flower): ?>
         <p><?php echo htmlspecialchars($flower['name'], ENT_QUOTES); ?></p>
-        <p><?php echo htmlspecialchars($flower['meaning'], ENT_QUOTES); ?></p>
+        <p><?php echo htmlspecialchars($flower['GROUP_CONCAT(meanings.meaning)'], ENT_QUOTES); ?></p>
         <img src="<?php echo htmlspecialchars($flower['image'], ENT_QUOTES); ?>" alt="">
       <?php endforeach; ?>
     </div>

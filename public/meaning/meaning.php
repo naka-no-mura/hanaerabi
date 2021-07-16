@@ -3,7 +3,16 @@
 require('../../app/db/dbconnect.php');
 
 if ($_GET['season']) {
-  $fmeanings = $db->prepare('SELECT flowers.meaning, flowers.id FROM flowers JOIN seasons ON flowers.season_id = seasons.id WHERE seasons.season =:season_name');
+  $fmeanings = $db->prepare(
+    'SELECT meanings.meaning, flowers.id, seasons.season
+     FROM seasons
+     JOIN categorization ON seasons.id = categorization.season_id
+     JOIN flowers ON categorization.flower_id = flowers.id
+     JOIN language ON flowers.id = language.flower_id
+     JOIN meanings ON language.meaning_id = meanings.id
+     WHERE seasons.season =:season_name
+     GROUP BY meanings.meaning'
+  );
   $fmeanings->bindValue(':season_name', $_GET['season'], PDO::PARAM_STR);
   $fmeanings->execute();
 }
@@ -31,6 +40,7 @@ if ($_GET['season']) {
       <?php foreach ($fmeanings as $fmeaning): ?>
         <form action="../items/item.php" method="get" class="meanings">
           <input type="hidden" name="flower_id" value="<?php echo $fmeaning['id'] ?>">
+          <input type="hidden" name="season" value="<?php echo $fmeaning['season'] ?>">
           <input type="submit" class="meaning" value="<?php echo htmlspecialchars($fmeaning['meaning'], ENT_QUOTES); ?>">
         </form>
       <?php endforeach; ?>
