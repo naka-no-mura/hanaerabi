@@ -1,5 +1,7 @@
 <?php
 
+require_once(__DIR__ . '/../../app/config/config.php');
+
 $seasons = ['春', '夏', '秋', '冬'];
 
 ?>
@@ -22,8 +24,8 @@ $seasons = ['春', '夏', '秋', '冬'];
   <main>
     <?php foreach ($seasons as $season): ?>
       <form action="../meaning/meaning.php" method="get" class="seasons">
-        <input type="hidden" name="season" value="<?php echo htmlspecialchars($season, ENT_QUOTES); ?>">
-        <input type="submit" class="season" value="<?php echo htmlspecialchars($season, ENT_QUOTES); ?>" >
+        <input type="hidden" name="season" value="<?php echo Utils::h($season); ?>">
+        <input type="submit" class="season" value="<?php echo Utils::h($season); ?>" >
       </form>
     <?php endforeach; ?>
   </main>

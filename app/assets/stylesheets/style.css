@@ -68,7 +68,7 @@ input {
 }
 
 .meanings .meaning {
-  padding: 0.5rem;
+  padding: 1rem;
   margin: 0.1rem;
   font-size: 1rem;
   border-radius: 10%;
@@ -77,5 +77,14 @@ input {
   background-color: lightcoral;
   color: #fff;
   overflow-wrap: break-word;
+}
+
+.flower-name {
+  background-color: lightcoral;
+  color: #fff;
+}
+
+.flower-img {
+  width: 100%;
 }
 /*# sourceMappingURL=style.css.map */

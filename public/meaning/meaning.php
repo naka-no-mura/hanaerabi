@@ -1,12 +1,9 @@
 <?php
 
-require('../../app/db/dbconnect.php');
+require_once(__DIR__ . '/../../app/config/config.php');
 
-if ($_GET['season']) {
-  $fmeanings = $db->prepare('SELECT flowers.meaning, flowers.id FROM flowers JOIN seasons ON flowers.season_id = seasons.id WHERE seasons.season =:season_name');
-  $fmeanings->bindValue(':season_name', $_GET['season'], PDO::PARAM_STR);
-  $fmeanings->execute();
-}
+$pdo = getPdoInstance($pdo);
+$fmeanings = FlowerLanguages::getFlowerLanguages($pdo);
 
 ?>
 <!DOCTYPE html>
@@ -26,12 +23,12 @@ if ($_GET['season']) {
     <h1>今の気分は？</h1>
   </head>
   <main>
-    <p><?php echo print(htmlspecialchars($_GET['season'], ENT_QUOTES)); ?></p>
     <div>
-      <?php foreach ($fmeanings as $fmeaning): ?>
+      <?php shuffle($fmeanings); foreach ($fmeanings as $fmeaning): ?>
         <form action="../items/item.php" method="get" class="meanings">
-          <input type="hidden" name="flower_id" value="<?php echo $fmeaning['id'] ?>">
-          <input type="submit" class="meaning" value="<?php echo htmlspecialchars($fmeaning['meaning'], ENT_QUOTES); ?>">
+          <input type="hidden" name="flower_id" value="<?php echo Utils::h($fmeaning['id']); ?>">
+          <input type="hidden" name="season" value="<?php echo Utils::h($fmeaning['season']); ?>">
+          <input type="submit" class="meaning" value="<?php echo Utils::h($fmeaning['meaning']); ?>">
         </form>
       <?php endforeach; ?>
     </div>

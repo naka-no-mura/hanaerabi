@@ -1,12 +1,9 @@
 <?php
 
-require('../../app/db/dbconnect.php');
+require_once(__DIR__ . '/../../app/config/config.php');
 
-if ($_GET['flower_id']) {
-  $flowers = $db->prepare('SELECT * FROM flowers JOIN seasons ON flowers.season_id = seasons.id WHERE flowers.id =:flower_num');
-  $flowers->bindValue(':flower_num', $_GET['flower_id'], PDO::PARAM_INT);
-  $flowers->execute();
-}
+$pdo = getPdoInstance($pdo);
+$flowers = Flowers::getFlowers($pdo);
 
 ?>
 <!DOCTYPE html>
@@ -28,9 +25,10 @@ if ($_GET['flower_id']) {
   <main>
     <div>
       <?php foreach($flowers as $flower): ?>
-        <p><?php echo htmlspecialchars($flower['name'], ENT_QUOTES); ?></p>
-        <p><?php echo htmlspecialchars($flower['meaning'], ENT_QUOTES); ?></p>
-        <img src="<?php echo htmlspecialchars($flower['image'], ENT_QUOTES); ?>" alt="">
+        <h2 class="flower-name"><?php echo Utils::h($flower['name']); ?></h2>
+        <p>花言葉は・・・</p>
+        <p><big><?php echo Utils::h($flower['GROUP_CONCAT(meanings.meaning)']); ?></big></p>
+        <img class="flower-img" src="<?php echo Utils::h($flower['image']); ?>" alt="花の画像">
       <?php endforeach; ?>
     </div>
   </main>
