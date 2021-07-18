@@ -29,5 +29,13 @@
     <a href="seasons/season.php" class="start">はじめる ▶︎</a>
     <p class="logo-tx">ロゴメーカー <a href="https://www.designevo.com/jp/" title="無料オンラインロゴメーカー">DesignEvo</a> にて作成</p>
   </main>
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script>
+    liff
+    .init({
+        liffId: '1656216720-24XArQJK'
+    })
+    .then(() => {})
+  </script>
 </body>
 </html>
