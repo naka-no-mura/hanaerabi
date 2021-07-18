@@ -16,6 +16,15 @@ $seasons = ['春', '夏', '秋', '冬'];
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/stylesheets/style.css" type="text/css">
   <title>ハナエラビ</title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-170627472-4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-170627472-4');
+  </script>
 </head>
 <body>
   <head>
