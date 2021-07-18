@@ -15,7 +15,7 @@ $flowers = Flowers::getFlowers($pdo);
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../app/assets/stylesheets/style.css" type="text/css">
+  <link rel="stylesheet" href="../app/assets/stylesheets/style.css" type="text/css">
   <title>ハナエラビ</title>
 </head>
 <body>
