@@ -53,6 +53,9 @@ input {
     border-bottom: 8px solid indianred;
     background-color: lightcoral;
     color: #fff;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
   }
 }
 
@@ -71,6 +74,9 @@ input {
     background-color: lightcoral;
     color: #fff;
     overflow-wrap: break-word;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
   }
 }
 
