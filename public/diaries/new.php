@@ -2,8 +2,9 @@
 
 require_once(__DIR__ . '/../../app/config/config.php');
 
+// これいらないかも？
 $pdo = getPdoInstance($pdo);
-$fmeanings = FlowerLanguages::getFlowerLanguages($pdo);
+$flowers = Flowers::getFlowers($pdo);
 
 ?>
 <!DOCTYPE html>
@@ -16,7 +17,7 @@ $fmeanings = FlowerLanguages::getFlowerLanguages($pdo);
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/stylesheets/style.css" type="text/css">
-  <title>ハナエラビ</title>
+  <title>日記をつける</title>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-170627472-4"></script>
   <script>
@@ -29,18 +30,13 @@ $fmeanings = FlowerLanguages::getFlowerLanguages($pdo);
 </head>
 <body>
   <head>
-    <h1>今の気分は？</h1>
+    <h1>日記をつける</h1>
   </head>
   <main>
     <div>
-      <?php shuffle($fmeanings); foreach ($fmeanings as $fmeaning): ?>
-        <form action="../items/item.php" method="get" class="meanings">
-          <input type="hidden" name="flower_id" value="<?php echo Utils::h($fmeaning['id']); ?>">
-          <input type="hidden" name="season" value="<?php echo Utils::h($fmeaning['season']); ?>">
-          <input type="hidden" name="meaning" value="<?php echo Utils::h($fmeaning['meaning']); ?>">
-          <input type="submit" class="meaning" value="<?php echo Utils::h($fmeaning['meaning']); ?>">
-        </form>
-      <?php endforeach; ?>
+      <p><?php print_r(Utils::h($_GET['flower_name'])); ?></p>
+      <p><?php print_r(Utils::h($_GET['selected_meaning'])); ?></p>
+      <img src="<?php print_r(Utils::h($_GET['flower_image'])); ?>" alt="">
     </div>
   </main>
 </body>
