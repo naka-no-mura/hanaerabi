@@ -34,9 +34,9 @@ $flowers = Flowers::getFlowers($pdo);
   </head>
   <main>
     <div>
-      <p><?php print_r(Utils::h($_GET['flower_name'])); ?></p>
-      <p><?php print_r(Utils::h($_GET['selected_meaning'])); ?></p>
-      <img src="<?php print_r(Utils::h($_GET['flower_image'])); ?>" alt="">
+      <p><?php echo(Utils::h(filter_input(INPUT_GET, 'flower_name'))) ?></p>
+      <p><?php echo(Utils::h(filter_input(INPUT_GET, 'selected_meaning'))) ?></p>
+      <img src="<?php echo(Utils::h(filter_input(INPUT_GET, 'flower_image'))) ?>" alt="">
     </div>
   </main>
 </body>
