@@ -92,20 +92,17 @@ if ($_GET['user_id']) {
     .then(() => {
       const idToken = liff.getIDToken();
       console.log(idToken);
-      then(() => {
-        $.ajax({
-          type: "POST",
-          url: "new.php",
-          data: { "id_token": idToken },
-          dataType : "json",
-          scriptCharset: 'utf-8'
-        })
-        console.log('ajax成功')
+      $.ajax({
+        type: "POST",
+        url: "new.php",
+        data: { "id_token": idToken },
+        dataType : "json",
+        scriptCharset: 'utf-8'
       })
-      .catch((err) => {
-        console.log('ajax失敗', err);
-      });
     })
+    .catch((err) => {
+      console.log('ajax失敗', err);
+    });
   </script>
 </body>
 </html>
