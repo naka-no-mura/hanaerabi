@@ -96,7 +96,9 @@ if ($_GET['user_id']) {
         $.ajax({
           type: "POST",
           url: "new.php",
-          data: { "id_token": idToken }
+          data: {
+            id_token: idToken
+          }
         })
       })
     })
