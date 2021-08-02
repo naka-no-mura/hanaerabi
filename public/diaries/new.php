@@ -7,7 +7,8 @@ $pdo = getPdoInstance($pdo);
 
 // $line_id_token = filter_input(INPUT_POST, 'id_token');
 $line_id_token = $_POST['id_token'];
-echo '確認用' . $line_id_token;
+echo '確認用：' . $line_id_token;
+echo '確認用：' . $_POST['id_token'];
 
 if (!empty($line_id_token)) {
   $stmt = $pdo->prepare( 'INSERT INTO users (line_id_token) VALUES(:line_id_token)');
@@ -42,6 +43,7 @@ if ($_GET['user_id']) {
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/stylesheets/style.css" type="text/css">
   <title>記録をつける</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-170627472-4"></script>
   <script>
@@ -83,7 +85,6 @@ if ($_GET['user_id']) {
       </form>
     </div>
   </main>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>
     liff
