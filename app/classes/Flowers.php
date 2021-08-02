@@ -2,7 +2,12 @@
 
 class Flowers {
 
+  private static $name;
+  private static $image;
+  private static $meaning;
+
   public static function getFlowers($pdo) {
+    self::$meaning = $_GET['meaning'];
     if ($_GET['flower_id']) {
       $stmt = $pdo->prepare(
         'SELECT seasons.season, flowers.name, flowers.image, GROUP_CONCAT(meanings.meaning)
@@ -18,8 +23,22 @@ class Flowers {
       $stmt->bindValue(':season_name', $_GET['season'], PDO::PARAM_STR);
       $stmt->execute();
       $flowers = $stmt->fetchAll();
+      self::$name = $flowers[0]['name'];
+      self::$image = $flowers[0]['image'];
       return $flowers;
     }
+  }
+
+  public static function getName() {
+    return self::$name;
+  }
+
+  public static function getImage() {
+    return self::$image;
+  }
+
+  public static function getMeaning() {
+    return self::$meaning;
   }
 }
 
