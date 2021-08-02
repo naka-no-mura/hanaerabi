@@ -3,7 +3,7 @@
 require_once(__DIR__ . '/../../app/config/config.php');
 
 // これいらないかも？
-$pdo = getPdoInstance($pdo);
+// $pdo = getPdoInstance($pdo);
 
 // $line_id_token = filter_input(INPUT_POST, 'id_token');
 $line_id_token = $_POST['id_token'];
