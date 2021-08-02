@@ -4,7 +4,29 @@ require_once(__DIR__ . '/../../app/config/config.php');
 
 // これいらないかも？
 $pdo = getPdoInstance($pdo);
-$flowers = Flowers::getFlowers($pdo);
+
+$line_id_token = filter_input(INPUT_POST, 'id_token');
+
+if (!empty($line_id_token)) {
+  $stmt = $pdo->prepare( 'INSERT INTO users (line_id_token) VALUES(:line_id_token)');
+  $stmt->execute(['line_id_token' => $line_id_token]);
+} else {
+  echo 'LINE IDトークンがありません';
+}
+
+if ($_GET['user_id']) {
+  $stmt = $pdo->prepare(
+    'INSERT INTO records (created_at, flower_name, selected_meaning, flower_image, comment, user_id)
+    VALUES(:created_at, :flower_name, :selected_meaning, :flower_image, :comment, :user_id)');
+  $stmt->execute([
+    'created_at' => filter_input(INPUT_GET, 'created_at'),
+    'flower_name' => filter_input(INPUT_GET, 'flower_name'),
+    'selected_meaning' => filter_input(INPUT_GET, 'selected_meaning'),
+    'flower_image' => filter_input(INPUT_GET, 'flower_image'),
+    'comment' => filter_input(INPUT_GET, 'comment'),
+    'user_id' => filter_input(INPUT_GET, 'user_id'),
+  ]);
+}
 
 ?>
 <!DOCTYPE html>
@@ -17,7 +39,7 @@ $flowers = Flowers::getFlowers($pdo);
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/stylesheets/style.css" type="text/css">
-  <title>日記をつける</title>
+  <title>記録をつける</title>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-170627472-4"></script>
   <script>
@@ -30,14 +52,61 @@ $flowers = Flowers::getFlowers($pdo);
 </head>
 <body>
   <head>
-    <h1>日記をつける</h1>
+    <h1>記録をつける</h1>
   </head>
   <main>
     <div>
-      <p><?php echo(Utils::h(filter_input(INPUT_GET, 'flower_name'))) ?></p>
-      <p><?php echo(Utils::h(filter_input(INPUT_GET, 'selected_meaning'))) ?></p>
-      <img src="<?php echo(Utils::h(filter_input(INPUT_GET, 'flower_image'))) ?>" alt="">
+      <form action="" method="get">
+        <input type="hidden" name="user_id" value="1">
+        <img src="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_image'))); ?>" alt="花の画像">
+        <input type="hidden" name="flower_image" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_image'))); ?>">
+        <table>
+          <tr>
+            <td>日付</td>
+            <td><input type="date" name="created_at" value="<?php echo date('Y-m-d'); ?>"></td>
+          </tr>
+          <tr>
+            <td>花の名前</td>
+            <td><?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_name'))); ?></td>
+            <input type="hidden" name="flower_name" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_name'))); ?>">
+          </tr>
+          <tr>
+            <td>選んだ花言葉</td>
+            <td><?php echo(Utils::h((string)filter_input(INPUT_GET, 'selected_meaning'))); ?></td>
+            <input type="hidden" name="selected_meaning" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'selected_meaning'))); ?>">
+          </tr>
+        </table>
+        <textarea name="comment" id="" cols="30" rows="5" placeholder="ひとことコメント"></textarea><br>
+        <input type="submit" value="記録をつける">
+      </form>
     </div>
   </main>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script>
+    liff
+    .init({
+        liffId: '1656216720-24XArQJK'
+    })
+    .then(() => {
+      const idToken = liff.getIDToken();
+      // console.log(idToken);
+      $.ajax({
+        type: "POST",
+        url: "new.php",
+        data: { "id_token": idToken },
+        dataType : "json",
+        scriptCharset: 'utf-8'
+      })
+      .then(
+        function(param){　 //　paramに処理後のデータが入って戻ってくる
+          console.log(param); //　帰ってきたら実行する処理
+        },
+        function(XMLHttpRequest, textStatus, errorThrown){ //　エラーが起きた時はこちらが実行される
+          console.log(XMLHttpRequest); //　エラー内容表示
+        }
+      );
+    })
+  </script>
 </body>
 </html>

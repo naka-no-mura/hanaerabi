@@ -48,7 +48,7 @@ $selected_meaning = Flowers::getMeaning();
         <input type="hidden" name="flower_name" value="<?php echo Utils::h($flower_name); ?>">
         <input type="hidden" name="flower_image" value="<?php echo Utils::h($flower_image); ?>">
         <input type="hidden" name="selected_meaning" value="<?php echo Utils::h($selected_meaning); ?>">
-        <input type="submit" value="日記をつける">
+        <input type="submit" value="記録をつける">
       </form>
     </div>
   </main>
