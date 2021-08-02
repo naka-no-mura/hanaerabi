@@ -91,20 +91,20 @@ if ($_GET['user_id']) {
     })
     .then(() => {
       const idToken = liff.getIDToken();
-      console.log(idToken);
       $(function() {
         $.ajax({
           type: "POST",
           url: "new.php",
           data: {
             id_token: idToken
-          }
+          },
+          success:function(data) {
+            alert(data);
+          },
+          error:function(XMLHttpRequest, textStatus, errorThrown) {}
         })
       })
     })
-    .catch((err) => {
-      console.log('ajax失敗', err);
-    });
   </script>
 </body>
 </html>
