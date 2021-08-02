@@ -52,5 +52,23 @@ $selected_meaning = Flowers::getMeaning();
       </form>
     </div>
   </main>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script>
+    liff
+    .init({
+        liffId: '1656216720-24XArQJK'
+    })
+    .then(() => {
+      liff.getProfile()
+      .then(profile => {
+        const name = profile.displayName
+        console.log(name);
+      })
+      .catch((err) => {
+        console.log('error', err);
+      });
+    })
+  </script>
 </body>
 </html>
