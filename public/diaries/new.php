@@ -102,9 +102,9 @@ if ($_GET['user_id']) {
         })
         console.log('ajax成功')
       })
-      .catch(() => {
-        console.log('ajax失敗')
-      })
+      .catch((err) => {
+        console.log('ajax失敗', err);
+      });
     })
   </script>
 </body>
