@@ -91,8 +91,8 @@ if ($_GET['user_id']) {
         liffId: '1656216720-24XArQJK'
     })
     .then(() => {
-      const idToken = liff.getIDToken();
       $(function() {
+        const idToken = liff.getIDToken();
         $.ajax({
           type: "POST",
           url: "new.php",

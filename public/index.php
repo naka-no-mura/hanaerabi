@@ -37,13 +37,13 @@
     .init({
         liffId: '1656216720-24XArQJK'
     })
-    .then(() => {
-      if (!liff.isLoggedIn()) {
-      liff.login()
-      }
-      const idToken = liff.getIDToken();
-      console.log(idToken);
-    })
+    // .then(() => {
+    //   if (!liff.isLoggedIn()) {
+    //   liff.login()
+    //   }
+    //   const idToken = liff.getIDToken();
+    //   console.log(idToken);
+    // })
   </script>
 </body>
 </html>
