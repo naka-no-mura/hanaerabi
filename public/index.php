@@ -41,7 +41,6 @@
       if (!liff.isLoggedIn()) {
       liff.login()
       }
-      getProfile();
       const idToken = liff.getIDToken();
       console.log(idToken);
     })
