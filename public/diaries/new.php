@@ -6,6 +6,7 @@ require_once(__DIR__ . '/../../app/config/config.php');
 $pdo = getPdoInstance($pdo);
 
 $line_id_token = filter_input(INPUT_POST, 'id_token');
+echo '確認用' . $line_id_token;
 
 if (!empty($line_id_token)) {
   $stmt = $pdo->prepare( 'INSERT INTO users (line_id_token) VALUES(:line_id_token)');
@@ -91,21 +92,19 @@ if ($_GET['user_id']) {
     .then(() => {
       const idToken = liff.getIDToken();
       console.log(idToken);
-      $.ajax({
-        type: "POST",
-        url: "new.php",
-        data: { "id_token": idToken },
-        dataType : "json",
-        scriptCharset: 'utf-8'
+      thien(() => {
+        $.ajax({
+          type: "POST",
+          url: "new.php",
+          data: { "id_token": idToken },
+          dataType : "json",
+          scriptCharset: 'utf-8'
+        })
+        console.log('ajax成功')
       })
-      .then(
-        function(param){　 //　paramに処理後のデータが入って戻ってくる
-          console.log(param); //　帰ってきたら実行する処理
-        },
-        function(XMLHttpRequest, textStatus, errorThrown){ //　エラーが起きた時はこちらが実行される
-          console.log(XMLHttpRequest); //　エラー内容表示
-        }
-      );
+      .catch(() => {
+        console.log('ajax失敗')
+      })
     })
   </script>
 </body>

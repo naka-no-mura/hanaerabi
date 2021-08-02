@@ -38,8 +38,10 @@
         liffId: '1656216720-24XArQJK'
     })
     .then(() => {
+      if (!liff.isLoggedIn()) {
+      liff.login()
+      }
       getProfile();
-      displayLiffData();
       const idToken = liff.getIDToken();
       console.log(idToken);
     })

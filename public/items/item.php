@@ -60,12 +60,6 @@ $selected_meaning = Flowers::getMeaning();
         liffId: '1656216720-24XArQJK'
     })
     .then(() => {
-      if (!liff.isLoggedIn()) {
-      liff.login()
-      .then(
-        console.log('ログインできました')
-      )
-      }
       liff.getProfile()
       .then(profile => {
         const name = profile.displayName
