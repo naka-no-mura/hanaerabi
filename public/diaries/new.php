@@ -8,14 +8,14 @@ require_once(__DIR__ . '/../../app/config/config.php');
 $line_id_token = filter_input(INPUT_POST, 'id_token');
 echo '確認用：' . $line_id_token;
 
-if ($line_id_token) {
-  $stmt = $pdo->prepare( 'INSERT INTO users (line_id_token) VALUES(?)');
-  $stmt->execute([
-    $line_id_token
-  ]);
-} else {
-  echo 'LINE IDトークンがありません';
-}
+// if ($line_id_token) {
+//   $stmt = $pdo->prepare('INSERT INTO users (line_id_token) VALUES(?)');
+//   $stmt->execute([
+//     $line_id_token
+//   ]);
+// } else {
+//   echo 'LINE IDトークンがありません';
+// }
 
 if ($_GET['user_id']) {
   $stmt = $pdo->prepare(
@@ -56,6 +56,7 @@ if ($_GET['user_id']) {
 <body>
   <head>
     <h1>記録をつける</h1>
+    <?php print_r($line_id_token) ?>
   </head>
   <main>
     <div>
