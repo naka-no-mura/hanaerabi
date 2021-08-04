@@ -6,9 +6,9 @@ require_once(__DIR__ . '/../../app/config/config.php');
 // $pdo = getPdoInstance($pdo);
 
 $line_id_token = filter_input(INPUT_POST, 'id_token');
-echo '確認用(filter_input)：' . $line_id_token;
+echo '確認用：' . $line_id_token;
 
-if (!empty($line_id_token)) {
+if ($line_id_token) {
   $stmt = $pdo->prepare( 'INSERT INTO users (line_id_token) VALUES(?)');
   $stmt->execute([
     $line_id_token
