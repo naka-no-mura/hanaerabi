@@ -43,7 +43,7 @@ $selected_meaning = Flowers::getMeaning();
         <p><big><?php echo Utils::h($flower['GROUP_CONCAT(meanings.meaning)']); ?></big></p>
         <img class="flower-img" src="<?php echo Utils::h($flower['image']); ?>" alt="花の画像">
       <?php endforeach; ?>
-      <form action="../diaries/new.php" method="get">
+      <form action="../records/new.php" method="get">
         <input type="hidden" name="new_diary" value="new_diary">
         <input type="hidden" name="flower_name" value="<?php echo Utils::h($flower_name); ?>">
         <input type="hidden" name="flower_image" value="<?php echo Utils::h($flower_image); ?>">
