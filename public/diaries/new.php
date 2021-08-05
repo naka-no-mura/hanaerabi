@@ -8,15 +8,33 @@ $line_id_token = filter_input(INPUT_POST, 'id_token');
 echo '確認用：' . $line_id_token;
 
 if ($line_id_token) {
-  $stmt = $pdo->prepare('INSERT INTO users (line_id_token) VALUES(?)');
-  $stmt->execute([
-    $line_id_token
-  ]);
+
+  // line_id_tokenをもとにusersテーブルにすでにidが存在するか確認
+  $stmt = $pdo->prepare('SELECT id FROM users WHERE line_id_token = :line_id_token');
+  $stmt->bindValue(':line_id_token', $line_id_token, PDO::PARAM_STR);
+  $stmt->execute();
+  $user_id = $stmt->fetch();
+
+  // usersテーブルにidが存在しない場合は初めてのログインなのでINSERT
+  if (empty($user_id)) {
+    $stmt = $pdo->prepare('INSERT INTO users (line_id_token) VALUES(?)');
+    $stmt->execute([
+      $line_id_token
+    ]);
+
+    // usersテーブルからidを取得して$user_idに格納
+    $stmt = $pdo->prepare('SELECT id FROM users WHERE line_id_token = :line_id_token');
+    $stmt->bindValue(':line_id_token', $line_id_token, PDO::PARAM_STR);
+    $stmt->execute();
+    $user_id = $stmt->fetch();
+  }
+
 } else {
-  echo 'LINE IDトークンがありません';
+  echo 'LINE IDトークンを取得できませんでした。ログインしてください。';
 }
 
-if ($_GET['user_id']) {
+if ($_POST['record']) {
+
   $stmt = $pdo->prepare(
     'INSERT INTO records (created_at, flower_name, selected_meaning, flower_image, comment, user_id)
     VALUES(:created_at, :flower_name, :selected_meaning, :flower_image, :comment, :user_id)');
@@ -26,8 +44,10 @@ if ($_GET['user_id']) {
     'selected_meaning' => filter_input(INPUT_GET, 'selected_meaning'),
     'flower_image' => filter_input(INPUT_GET, 'flower_image'),
     'comment' => filter_input(INPUT_GET, 'comment'),
-    'user_id' => filter_input(INPUT_GET, 'user_id'),
+    'user_id' => $user_id,
   ]);
+
+  echo 'recordsテーブルにINSERTしました';
 }
 
 ?>
@@ -59,8 +79,8 @@ if ($_GET['user_id']) {
   </head>
   <main>
     <div>
-      <form action="" method="get">
-        <input type="hidden" name="user_id" value="1">
+      <form action="" method="post">
+        <input type="hidden" name="record" value="">
         <img src="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_image'))); ?>" alt="花の画像">
         <input type="hidden" name="flower_image" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_image'))); ?>">
         <table>
