@@ -17,7 +17,7 @@ class Users {
       $_SESSION['user_id'] = $res['id'];
 
       // usersテーブルにidが存在しない場合は初めてのログインなのでINSERT
-      if ($_SESSION['user_id']) {
+      if (empty($_SESSION['user_id'])) {
         $stmt = $pdo->prepare('INSERT INTO users (line_id_token) VALUES(?)');
         $stmt->execute([
           $line_id_token
@@ -32,7 +32,7 @@ class Users {
       }
 
     } else {
-      echo 'LINE IDトークンを取得できませんでした。ログインしてください。';
+      return $res['error'] = 'ハナエラビのLINE公式アカウントからログインしてください';
     }
   }
 }

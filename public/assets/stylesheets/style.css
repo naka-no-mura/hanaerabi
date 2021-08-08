@@ -23,6 +23,20 @@ input {
   appearance: none;
 }
 
+.btn {
+  padding: 1rem;
+  margin: 1rem;
+  font-size: 1rem;
+  border-radius: 1rem;
+  border: none;
+  background-color: lightcoral;
+  color: #fff;
+  overflow-wrap: break-word;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 .top-img {
   width: 60%;
 }
@@ -95,5 +109,15 @@ input {
 
 .flower-img {
   width: 100%;
+}
+
+.table {
+  border: 3px dashed lightcoral;
+  margin: 1rem 0;
+  border-radius: 1rem;
+}
+
+.table .table-el {
+  margin: 0.5rem 0;
 }
 /*# sourceMappingURL=style.css.map */

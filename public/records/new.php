@@ -37,27 +37,26 @@ Users::getUserIdFromLineIdToken($pdo);
     <div>
       <form action="./records.php" method="post">
         <input type="hidden" name="record" value="record">
-        <img src="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_image'))); ?>" alt="花の画像">
+        <img class="flower-img" src="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_image'))); ?>" alt="花の画像">
         <input type="hidden" name="flower_image" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_image'))); ?>">
-        <table>
-          <tr>
-            <td>日付</td>
-            <td><input type="date" name="created_at" value="<?php echo date('Y-m-d'); ?>"></td>
-          </tr>
-          <tr>
-            <td>花の名前</td>
-            <td><?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_name'))); ?></td>
-            <input type="hidden" name="flower_name" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_name'))); ?>">
-          </tr>
-          <tr>
-            <td>選んだ花言葉</td>
-            <td><?php echo(Utils::h((string)filter_input(INPUT_GET, 'selected_meaning'))); ?></td>
-            <input type="hidden" name="selected_meaning" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'selected_meaning'))); ?>">
-          </tr>
-        </table>
+        <div class="table">
+          <div class="table-el">
+            <span>日付：</span>
+            <span><input type="date" required name="created_at" value="<?php echo date('Y-m-d'); ?>"></span>
+          </div>
+          <div class="table-el">
+            <span>花の名前：</span>
+            <span><input type="text" name="flower_name" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_name'))); ?>"></span>
+          </div>
+          <div class="table-el">
+            <span>選んだ花言葉：</span>
+            <span><input type="text" name="selected_meaning" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'selected_meaning'))); ?>"></span>
+          </div>
+        </div>
         <textarea name="comment" id="" cols="30" rows="5" placeholder="ひとことコメント"></textarea><br>
-        <input type="submit" value="記録をつける">
+        <input type="submit" class="btn" value="この内容で記録をつける ▶︎">
       </form>
+      <a href="./records.php">一覧画面へ</a>
     </div>
   </main>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -68,8 +67,12 @@ Users::getUserIdFromLineIdToken($pdo);
         liffId: '1656216720-24XArQJK'
     })
     .then(() => {
+      if (!liff.isLoggedIn()) {
+      liff.login()
+      }
       $(function() {
         const idToken = liff.getIDToken();
+        console.log(idToken);
         $.ajax({
           type: "POST",
           url: "new.php",

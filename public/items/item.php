@@ -9,6 +9,8 @@ $flower_name = Flowers::getName();
 $flower_image = Flowers::getImage();
 $selected_meaning = Flowers::getMeaning();
 
+$line_name = filter_input(INPUT_POST, 'line_name');
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -33,7 +35,7 @@ $selected_meaning = Flowers::getMeaning();
 </head>
 <body>
   <head>
-    <h1>そんなあなたへは</h1>
+    <h1>そんな<?= $line_name ?>さんへは</h1>
   </head>
   <main>
     <div>
@@ -48,7 +50,7 @@ $selected_meaning = Flowers::getMeaning();
         <input type="hidden" name="flower_name" value="<?php echo Utils::h($flower_name); ?>">
         <input type="hidden" name="flower_image" value="<?php echo Utils::h($flower_image); ?>">
         <input type="hidden" name="selected_meaning" value="<?php echo Utils::h($selected_meaning); ?>">
-        <input type="submit" value="記録をつける">
+        <input type="submit" class="btn" value="記録をつける ▶︎">
       </form>
     </div>
   </main>
@@ -60,14 +62,29 @@ $selected_meaning = Flowers::getMeaning();
         liffId: '1656216720-24XArQJK'
     })
     .then(() => {
+      $(function() {
       liff.getProfile()
-      .then(profile => {
-        const name = profile.displayName
-        console.log(name);
+        .then(profile => {
+          const name = profile.displayName
+          console.log(name);
+          $.ajax({
+            type: "POST",
+            url: "item.php",
+            data: {
+              line_name: name
+            },
+            success:function(data) {
+              console.log(data);
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown) {
+              console.log(XMLHttpRequest);
+            }
+          })
+        })
+        .catch((err) => {
+          console.log('error', err);
+        });
       })
-      .catch((err) => {
-        console.log('error', err);
-      });
     })
   </script>
 </body>
