@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/stylesheets/style.css" type="text/css">
-  <script src="assets/javascript/main.js" type="text/javascript"></script>
   <title>ハナエラビ</title>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-170627472-4"></script>

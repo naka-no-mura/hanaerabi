@@ -9,7 +9,7 @@ $flower_name = Flowers::getName();
 $flower_image = Flowers::getImage();
 $selected_meaning = Flowers::getMeaning();
 
-$line_name = filter_input(INPUT_POST, 'line_name');
+// $line_name = filter_input(INPUT_POST, 'line_name');
 
 ?>
 <!DOCTYPE html>
@@ -35,7 +35,7 @@ $line_name = filter_input(INPUT_POST, 'line_name');
 </head>
 <body>
   <head>
-    <h1>そんな<?= $line_name ?>さんへは</h1>
+    <h1>そんなあなたへは</h1>
   </head>
   <main>
     <div>
@@ -62,6 +62,9 @@ $line_name = filter_input(INPUT_POST, 'line_name');
         liffId: '1656216720-24XArQJK'
     })
     .then(() => {
+      if (!liff.isLoggedIn()) {
+      liff.login()
+      }
       $(function() {
       liff.getProfile()
         .then(profile => {

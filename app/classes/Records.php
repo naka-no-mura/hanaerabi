@@ -40,7 +40,7 @@ class Records {
 
   public static function gerRecords($pdo) {
     if ($_SESSION['user_id']) {
-      $stmt = $pdo->prepare('SELECT created_at_year, created_at_month, created_at_day, flower_name, selected_meaning, flower_image, comment FROM records WHERE user_id = :user_id');
+      $stmt = $pdo->prepare('SELECT created_at_year, created_at_month, created_at_day, flower_name, selected_meaning, flower_image, comment FROM records WHERE user_id = :user_id ORDER BY id DESC');
       $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
       $stmt->execute();
       $records = $stmt->fetchAll();
