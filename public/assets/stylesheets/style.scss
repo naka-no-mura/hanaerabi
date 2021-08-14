@@ -1,7 +1,7 @@
 body {
-  background-color: #fff9dc;
+  background-color: #fff;
   text-align: center;
-  color: lightcoral;
+  color: darkturquoise;
   font-family: 'M PLUS Rounded 1c', sans-serif;
   margin: 0 auto;
   width: 90%;
@@ -11,7 +11,7 @@ main {
 }
 a {
   text-decoration: none;;
-  color: lightcoral;
+  color: darkturquoise;
 }
 input {
   font-family: 'M PLUS Rounded 1c', sans-serif;
@@ -26,7 +26,7 @@ input {
   font-size: 1rem;
   border-radius: 1rem;
   border: none;
-  background-color: lightcoral;
+  background-color: darkturquoise;
   color: #fff;
   overflow-wrap: break-word;
   -moz-appearance: none;
@@ -45,7 +45,7 @@ input {
   margin: 1rem 0 3rem;
   padding: 1.5rem 2.5rem;
   display: inline-block;
-  background-color: lightcoral;
+  background-color: darkturquoise;
   color: #fff;
 }
 
@@ -65,7 +65,7 @@ input {
     border-radius: 10%;
     border: none;
     border-bottom: 8px solid indianred;
-    background-color: lightcoral;
+    background-color: darkturquoise;
     color: #fff;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -85,7 +85,7 @@ input {
     border-radius: 10%;
     border: none;
     border-bottom: 8px solid indianred;
-    background-color: lightcoral;
+    background-color: darkturquoise;
     color: #fff;
     overflow-wrap: break-word;
     -moz-appearance: none;
@@ -96,20 +96,41 @@ input {
 
 // 花紹介
 .flower-name {
-  background-color: lightcoral;
+  background-color: darkturquoise;
   color: #fff;
 }
 .flower-img {
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 1rem;
 }
 
 // 記録入力
 .table {
-  border: 3px dashed lightcoral;
+  border: 3px dashed darkturquoise;
   margin: 1rem 0;
   border-radius: 1rem;
 
   .table-el {
     margin: 0.5rem 0;
+  }
+}
+
+// 記録一覧
+.card {
+  position: relative;
+  margin: 2rem 0 3rem;
+
+  .created-day {
+    position: absolute;
+    top: -2rem;
+    left: -0.5rem;
+    background-color: darkturquoise;
+    color: #fff;
+    display: inline-block;
+    border-radius: 50%;
+    line-height: 4.5rem;
+    height: 4.5rem;
+    width: 4.5rem;
   }
 }

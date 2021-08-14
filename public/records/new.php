@@ -38,7 +38,7 @@ Users::getUserIdFromLineIdToken($pdo);
       <form action="./records.php" method="post">
         <input type="hidden" name="record" value="record">
         <img class="flower-img" src="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_image'))); ?>" alt="花の画像">
-        <input type="hidden" name="flower_image" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_image'))); ?>">
+        <input type="hidden" required name="flower_image" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_image'))); ?>">
         <div class="table">
           <div class="table-el">
             <span>日付：</span>
@@ -46,11 +46,11 @@ Users::getUserIdFromLineIdToken($pdo);
           </div>
           <div class="table-el">
             <span>花の名前：</span>
-            <span><input type="text" name="flower_name" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_name'))); ?>"></span>
+            <span><input type="text" required name="flower_name" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_name'))); ?>"></span>
           </div>
           <div class="table-el">
             <span>選んだ花言葉：</span>
-            <span><input type="text" name="selected_meaning" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'selected_meaning'))); ?>"></span>
+            <span><input type="text" required name="selected_meaning" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'selected_meaning'))); ?>"></span>
           </div>
         </div>
         <textarea name="comment" id="" cols="30" rows="5" placeholder="ひとことコメント"></textarea><br>
