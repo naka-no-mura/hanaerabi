@@ -17,12 +17,12 @@ class Records {
       // 画像がアップロードされた場合
       if (!empty($_FILES)) {
 
-        // 拡張子をチェックしてjpg,jpeg,png,heic, gifのみアップロード許可
+        // 拡張子をチェックしてjpg,jpeg,png,heic,gifのみアップロード許可
         $file_exts = strtolower(pathinfo($_FILES['upload_image']['name'], PATHINFO_EXTENSION));
-        $allow_exts = ['jpg', 'jpeg', 'png', 'gif'];
-        if ($file_exts === 'heic') {
-          $file_exts = 'jpg';
-        }
+        $allow_exts = ['jpg', 'jpeg', 'png', 'gif', 'heic'];
+        // if ($file_exts === 'heic') {
+        //   $file_exts = 'jpg';
+        // }
         $exts_res = in_array($file_exts, $allow_exts);
 
         if ($exts_res === true) {
@@ -36,7 +36,7 @@ class Records {
             $flower_image = $image_pass_for_db;
           }
         } else {
-          return $res['error'] = '拡張子がjpg、jpeg、png、heic、gifのいずれかに当てはまる画像を選択してください（大文字小文字は区別しません）';
+          // return $res['error'] = '拡張子がjpg、jpeg、png、heic、gifに該当する画像を選択して下さい（拡張子の大文字小文字は区別しません）';
         }
       }
 

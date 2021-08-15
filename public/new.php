@@ -36,7 +36,7 @@ Users::getUserIdFromLineIdToken($pdo);
         </div>
         <div class="table-el">
           <span>写真を投稿</span><br>
-          <input type="file" name="upload_image">
+          <input type="file" name="upload_image" style="width: 85%">
         </div>
         <div class="table-el">
           <span>ひとことコメント</span>

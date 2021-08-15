@@ -120,6 +120,7 @@ input {
 
   .table-el {
     margin: 0.8rem 0;
+    width: 100%;
 
     input {
       border: none;
@@ -127,6 +128,12 @@ input {
       font-size: 1rem;
       border-bottom: 2px solid #fff;
       color: #333;
+      display: block;
+      width: 85%;
+      margin: 0 auto;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
     }
 
     input:focus {
@@ -140,6 +147,12 @@ textarea {
   border: none;
   background-color: #fff;
   font-size: 1rem;
+      display: block;
+      width:85%;
+      margin: 0 auto;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
 }
 
 textarea:focus {
