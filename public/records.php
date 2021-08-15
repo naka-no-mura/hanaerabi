@@ -7,7 +7,6 @@ $title = '記録一覧';
 $pdo = getPdoInstance($pdo);
 
 $res = Records::createRecord($pdo);
-echo $res;
 
 // line_id_tokenからuser_idを取得 => user_idは $session['user_id] に格納
 Users::getUserIdFromLineIdToken($pdo);
@@ -20,6 +19,7 @@ $records = Records::gerRecords($pdo);
 <html lang="ja">
   <?php require_once(__DIR__ . '/./common/header.php'); ?>
 <body>
+  <?php print_r($res); ?>
   <head>
     <h1>わたしの記録</h1>
   </head>
