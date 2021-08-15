@@ -35,7 +35,10 @@ Users::getUserIdFromLineIdToken($pdo);
           <span><input type="text" required name="selected_meaning" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'selected_meaning'))); ?>"></span>
         </div>
       </div>
-      <textarea name="comment" id="" cols="30" rows="5" placeholder="ひとことコメント"></textarea><br>
+      <div class="table-el">
+        <span>ひとことコメント</span>
+        <textarea name="comment" id="" cols="30" rows="5" placeholder="ご自由にお書きください"></textarea>
+      </div>
       <input type="submit" class="btn" value="この内容で記録をつける ▶︎">
     </form>
     <a href="records.php">一覧画面へ</a>
