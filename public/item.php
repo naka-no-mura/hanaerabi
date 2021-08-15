@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__ . '/../../app/config/config.php');
+require_once(__DIR__ . '/../app/config/config.php');
 
 $pdo = getPdoInstance($pdo);
 $flowers = Flowers::getFlowers($pdo);
@@ -21,7 +21,7 @@ $selected_meaning = Flowers::getMeaning();
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/stylesheets/style.css" type="text/css">
+  <link rel="stylesheet" href="assets/stylesheets/style.css" type="text/css">
   <title>ハナエラビ</title>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-170627472-4"></script>
@@ -45,7 +45,7 @@ $selected_meaning = Flowers::getMeaning();
         <p><big><?php echo Utils::h($flower['GROUP_CONCAT(meanings.meaning)']); ?></big></p>
         <img class="flower-img" src="<?php echo Utils::h($flower['image']); ?>" alt="花の画像">
       <?php endforeach; ?>
-      <form action="../records/new.php" method="get">
+      <form action="new.php" method="get">
         <input type="hidden" name="new_diary" value="new_diary">
         <input type="hidden" name="flower_name" value="<?php echo Utils::h($flower_name); ?>">
         <input type="hidden" name="flower_image" value="<?php echo Utils::h($flower_image); ?>">
@@ -54,6 +54,7 @@ $selected_meaning = Flowers::getMeaning();
       </form>
     </div>
   </main>
+  <?php require_once(__DIR__ . '/./common/footer.php'); ?>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>

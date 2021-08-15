@@ -1,19 +1,11 @@
 <?php
 session_start();
 
-require_once(__DIR__ . '/../../app/config/config.php');
+require_once(__DIR__ . '/../app/config/config.php');
 
 $pdo = getPdoInstance($pdo);
 
-$res = Records::createRecord($pdo);
-echo $res;
-
-// line_id_tokenからuser_idを取得 => user_idは $session['user_id] に格納
 Users::getUserIdFromLineIdToken($pdo);
-
-// user_idに紐づいた記録を全て取得
-$records = Records::gerRecords($pdo);
-
 
 ?>
 <!DOCTYPE html>
@@ -25,8 +17,8 @@ $records = Records::gerRecords($pdo);
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/stylesheets/style.css" type="text/css">
-  <title>わたしの記録</title>
+  <link rel="stylesheet" href="assets/stylesheets/style.css" type="text/css">
+  <title>記録をつける</title>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-170627472-4"></script>
   <script>
@@ -39,22 +31,33 @@ $records = Records::gerRecords($pdo);
 </head>
 <body>
   <head>
-    <h1>わたしの記録</h1>
+    <h1>記録をつける</h1>
   </head>
   <main>
-    <?php foreach ($records as $record): ?>
-      <div class="card">
-        <div class="created-day">
-          <span><small class="created-yaer"><?php echo Utils::h($record['created_at_year']); ?></small><br><b><?php echo Utils::h($record['created_at_month']); ?> / <?php echo Utils::h($record['created_at_day']); ?></b></span>
+    <form action="records.php" method="post">
+      <input type="hidden" name="record" value="record">
+      <img class="flower-img" src="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_image'))); ?>" alt="花の画像">
+      <input type="hidden" required name="flower_image" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_image'))); ?>">
+      <div class="table">
+        <div class="table-el">
+          <span>日付</span><br>
+          <span><input type="date" required name="created_at" value="<?php echo date('Y-m-d'); ?>"></span>
         </div>
-          <img class="flower-img" src="<?php echo Utils::h($record['flower_image']) ?>" alt="花の写真">
-        <h3 class="flower-name"><?php echo Utils::h($record['flower_name']); ?> ： <?php echo Utils::h($record['selected_meaning']); ?></h3>
-        <div class="content">
-          <p><?php echo Utils::h($record['comment']); ?></p>
+        <div class="table-el">
+          <span>花の名前</span><br>
+          <span><input type="text" required name="flower_name" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_name'))); ?>"></span>
+        </div>
+        <div class="table-el">
+          <span>選んだ花言葉</span><br>
+          <span><input type="text" required name="selected_meaning" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'selected_meaning'))); ?>"></span>
         </div>
       </div>
-    <?php endforeach; ?>
+      <textarea name="comment" id="" cols="30" rows="5" placeholder="ひとことコメント"></textarea><br>
+      <input type="submit" class="btn" value="この内容で記録をつける ▶︎">
+    </form>
+    <a href="records.php">一覧画面へ</a>
   </main>
+  <?php require_once(__DIR__ . '/./common/footer.php'); ?>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>
@@ -68,9 +71,10 @@ $records = Records::gerRecords($pdo);
       }
       $(function() {
         const idToken = liff.getIDToken();
+        console.log(idToken);
         $.ajax({
           type: "POST",
-          url: "records.php",
+          url: "new.php",
           data: {
             id_token: idToken
           },
