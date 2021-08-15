@@ -15,7 +15,6 @@ Users::getUserIdFromLineIdToken($pdo);
 // user_idに紐づいた記録を全て取得
 $records = Records::gerRecords($pdo);
 
-
 ?>
 <!DOCTYPE html>
 <html lang="ja">

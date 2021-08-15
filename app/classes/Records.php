@@ -12,7 +12,22 @@ class Records {
       $selected_meaning = filter_input(INPUT_POST, 'selected_meaning');
       $flower_image = filter_input(INPUT_POST, 'flower_image');
       $comment = filter_input(INPUT_POST, 'comment');
-      $user_id = $_SESSION['user_id'];
+      // $user_id = $_SESSION['user_id'];
+      $user_id = 65;
+
+      // 画像がアップロードされた場合
+      if (!empty($_FILES)) {
+        $image_name = uniqid(mt_rand(), true);
+        $image_pass = __DIR__ . "/../../public/image/$image_name";
+        $image_pass_for_db = "image/$image_name";
+        $res = move_uploaded_file($_FILES['upload_image']['tmp_name'], $image_pass);
+
+        // 画像をサーバーに保存できたらデフォルトの画像からアップロードされた画像に更新
+        if ($res === true) {
+          $flower_image = $image_pass_for_db;
+        }
+
+      }
 
 
       $created_at_ymd_array = explode("-", $created_at);
@@ -22,7 +37,7 @@ class Records {
 
       $stmt = $pdo->prepare(
         'INSERT INTO records (created_at_year, created_at_month, created_at_day, flower_name, selected_meaning, flower_image, comment, user_id)
-        VALUES(:created_at, :flower_name, :selected_meaning, :flower_image, :comment, :user_id)');
+        VALUES(:created_at_year, :created_at_month, :created_at_day, :flower_name, :selected_meaning, :flower_image, :comment, :user_id)');
       $stmt->execute([
         'created_at_year' => $created_at_year,
         'created_at_month' => $created_at_month,

@@ -17,7 +17,7 @@ Users::getUserIdFromLineIdToken($pdo);
     <h1>記録をつける</h1>
   </head>
   <main>
-    <form action="records.php" method="post">
+    <form action="records.php" method="post" enctype="multipart/form-data">
       <input type="hidden" name="record" value="record">
       <img class="flower-img" src="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_image'))); ?>" alt="花の画像">
       <input type="hidden" required name="flower_image" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'flower_image'))); ?>">
@@ -34,10 +34,14 @@ Users::getUserIdFromLineIdToken($pdo);
           <span>選んだ花言葉</span><br>
           <span><input type="text" required name="selected_meaning" value="<?php echo(Utils::h((string)filter_input(INPUT_GET, 'selected_meaning'))); ?>"></span>
         </div>
-      </div>
-      <div class="table-el">
-        <span>ひとことコメント</span>
-        <textarea name="comment" id="" cols="30" rows="5" placeholder="ご自由にお書きください"></textarea>
+        <div class="table-el">
+          <span>写真を投稿</span><br>
+          <input type="file" name="upload_image">
+        </div>
+        <div class="table-el">
+          <span>ひとことコメント</span>
+          <textarea name="comment" id="" cols="30" rows="5" placeholder="ご自由にお書きください"></textarea>
+        </div>
       </div>
       <input type="submit" class="btn" value="この内容で記録をつける ▶︎">
     </form>
