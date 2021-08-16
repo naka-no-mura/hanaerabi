@@ -144,20 +144,20 @@ input {
 }
 
 textarea {
-  border: none;
+  border: 2px solid #fff;
   background-color: #fff;
   font-size: 1rem;
-      display: block;
-      width:85%;
-      margin: 0 auto;
-      -moz-box-sizing: border-box;
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
+  display: block;
+  width:85%;
+  margin: 0 auto;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 textarea:focus {
   outline: none;
-  border: 1px solid darkturquoise;
+  border: 2px solid darkturquoise;
 }
 
 
@@ -166,12 +166,11 @@ textarea:focus {
 .card {
   position: relative;
   margin: 2rem 0 3rem;
-  // background-color: #f5f5f5;
   background-color: #fff;
   border-radius: 1rem;
-  // border: 3px dashed #333;
   border: 1px solid darkturquoise;
 
+  // 日付
   .created-day {
     position: absolute;
     top: -2rem;
@@ -180,12 +179,82 @@ textarea:focus {
     color: #fff;
     display: inline-block;
     border-radius: 50%;
-    // line-height: 4.5rem;
     height: 4.5rem;
     width: 4.5rem;
 
     .created-yaer {
       font-size: 0.5rem;
+    }
+  }
+
+  // モーダルボタン •••
+  .modal-btn {
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+
+    a {
+      font-weight: bold;
+    }
+  }
+
+  // モーダル
+  .modal {
+    display: none;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+  }
+
+  .modal-bg {
+    background-color: rgba(0,0,0,0.5);
+    height: 100vh;
+    position: absolute;
+    width: 100%;
+  }
+
+  .modal-content {
+    background-color: #fff;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 80%;
+    text-align: right;
+    border-radius: 1rem;
+
+    a {
+      margin: 1rem;
+      font-size: 2rem;
+    }
+
+    .edit-delete {
+      display: flex;
+
+      form {
+        justify-content: space-around;
+        margin: 0 auto;
+
+        input {
+          padding: 1rem 1.5rem;
+          border: none;
+          border-radius: 1rem;
+          margin: 1rem;
+          color: #fff;
+          font-size: 1.1rem;
+        }
+
+        .edit {
+          background-color: darkturquoise;
+        }
+
+        .delete {
+          background-color: indianred;
+        }
+      }
     }
   }
 
