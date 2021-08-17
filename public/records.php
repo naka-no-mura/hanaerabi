@@ -38,7 +38,8 @@ $records = Records::gerRecords($pdo);
         $stmt = $pdo->prepare('DELETE FROM records WHERE id = :id');
         $stmt->bindValue('id', $delete_id, PDO::PARAM_INT);
         $stmt->execute();
-        return $res['success'] = '記録を削除しました';
+        header ('Location: records.php');
+        $res['success'] = '記録を削除しました';
       } else {
         return $res['error'] = '削除できるのは自分の記録のみです';
       }

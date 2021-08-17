@@ -72,7 +72,7 @@ if (!empty($show_id)) {
         </div>
         <div class="table-el">
           <span>ひとことコメント</span>
-          <textarea name="comment" id="" cols="30" rows="5" placeholder="ご自由にお書きください" value="<?php echo Utils::h($record['comment']); ?>"></textarea>
+          <textarea name="comment" id="" cols="30" rows="5" placeholder="ご自由にお書きください"><?php echo Utils::h($record['comment']); ?></textarea>
         </div>
       </div>
       <input type="submit" class="btn" value="更新する ▶︎">
