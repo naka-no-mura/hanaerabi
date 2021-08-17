@@ -17,36 +17,63 @@ class Records {
       // 画像がアップロードされた場合
       if (!empty($_FILES)) {
 
-        // 拡張子をチェックしてjpg,jpeg,png,heic,gifのみアップロード許可
+        // 拡張子をチェックしてjpg,jpeg,png,gifのみアップロード許可
         $file_exts = strtolower(pathinfo($_FILES['upload_image']['name'], PATHINFO_EXTENSION));
-        $allow_exts = ['jpg', 'jpeg', 'png', 'gif', 'heic'];
+        $allow_exts = ['jpg', 'jpeg', 'png', 'gif'];
         $exts_res = in_array($file_exts, $allow_exts);
 
         if ($exts_res === true) {
+
+          // 500kbを超えていたらリサイズ
+          if ($_FILES['upload_image']['size'] > 500000) {
+            $upload_tmp_pass = $_FILES['upload_image']['tmp_name'];
+            list($src_w, $src_h, $type) = getimagesize($upload_tmp_pass);
+            $new_w = $src_w * 0.2;
+            $new_h = $src_h * 0.2;
+
+            switch ($type) {
+              case 1: //GIF
+                $baseimage = imagecreatefromgif($upload_tmp_pass);
+                break;
+              case 2: //JPEG
+                $baseimage = imagecreatefromjpeg($upload_tmp_pass);
+                break;
+              case 3: //PNG
+                $baseimage = imagecreatefrompng($upload_tmp_pass);
+                break;
+              default:
+                return false;
+            }
+
+            $new_image = imagecreatetruecolor($new_w, $new_h);
+            imagecopyresampled($new_image, $baseimage, 0, 0, 0, 0, $new_w, $new_h, $src_w, $src_h);
+
+            switch ($type) {
+              case 1: //GIF
+                imagegif($new_image, $upload_tmp_pass, 50);
+                break;
+              case 2: //JPEG
+                imagejpeg($new_image, $upload_tmp_pass, 50);
+                break;
+              case 3: //PNG
+                imagepng($new_image, $upload_tmp_pass, 50);
+                break;
+              default:
+                return false;
+            }
+          }
+
           $image_name = uniqid(mt_rand(), true) . '.' . $file_exts;
           $image_pass = __DIR__ . "/../../public/image/$image_name";
           $image_pass_for_db = "image/$image_name";
           $upload_res = move_uploaded_file($_FILES['upload_image']['tmp_name'], $image_pass);
-
-
-
-          // 500kbを超えていたらリサイズ
-          if ($_FILES['upload_image']['size'] > 500000) {
-            list($src_w, $src_h) = getimagesize($image_pass);
-            $new_w = $src_w * 0.2;
-            $new_h = $src_h * 0.2;
-            $baseimage = imagecreatefromjpeg($image_pass);
-            $new_image = imagecreatetruecolor($new_w, $new_h);
-            imagecopyresampled($new_image, $baseimage, 0, 0, 0, 0, $new_w, $new_h, $src_w, $src_h);
-            imagejpeg($new_image, $image_pass, 50);
-          }
 
           // 画像をサーバーに保存できたらデフォルトの画像からアップロードされた画像に更新
           if ($upload_res === true) {
             $flower_image = $image_pass_for_db;
           }
         } else {
-          // return $res['error'] = '拡張子がjpg、jpeg、png、heic、gifに該当する画像を選択して下さい（拡張子の大文字小文字は区別しません）';
+          // return $res['error'] = '拡張子がjpg、jpeg、png、gifに該当する画像を選択して下さい（拡張子の大文字小文字は区別しません）';
         }
       }
 
