@@ -19,12 +19,11 @@ $records = Records::gerRecords($pdo);
 
 
     // 削除
-    $delete = filter_input(INPUT_POST, 'delete');
-    $id = filter_input(INPUT_POST, 'id');
+    $delete_id = filter_input(INPUT_POST, 'delete');
 
-    if (!empty($delete)) {
+    if (!empty($delete_id)) {
         $stmt = $pdo->prepare('SELECT user_id FROM records WHERE id = :id');
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':id', $delete_id, PDO::PARAM_INT);
         $stmt->execute();
         $res = $stmt->fetch();
         $user_id = $res['user_id'];
@@ -37,7 +36,7 @@ $records = Records::gerRecords($pdo);
       // ログイン中のユーザーからのDELETEであれば処理を実行
       if ($user_id === $_SESSION['user_id']) {
         $stmt = $pdo->prepare('DELETE FROM records WHERE id = :id');
-        $stmt->bindValue('id', $id, PDO::PARAM_INT);
+        $stmt->bindValue('id', $delete_id, PDO::PARAM_INT);
         $stmt->execute();
         return $res['success'] = '記録を削除しました';
       } else {
@@ -76,15 +75,16 @@ $records = Records::gerRecords($pdo);
                 <input class="edit" type="submit" value="編集 ▶︎">
               </form>
               <form action="" method="post" onsubmit="return confirm_delete()">
-                <input type="hidden" name="delete" value="delete">
-                <input type="hidden" name="id" value="<?php echo Utils::h($record['id']); ?>">
+                <input type="hidden" name="delete" value="<?php echo Utils::h($record['id']); ?>">
                 <input class="delete" type="submit" value="削除 ▶︎">
               </form>
             </div>
           </div>
         </div>
         <!-- モーダル -->
-        <img class="flower-img" src="<?php echo Utils::h($record['flower_image']) ?>" alt="花の写真">
+        <div>
+          <img class="flower-img" src="<?php echo Utils::h($record['flower_image']) ?>" alt="花の写真">
+        </div>
         <h3 class="flower-name"><?php echo Utils::h($record['flower_name']); ?> ： <?php echo Utils::h($record['selected_meaning']); ?></h3>
         <div class="content">
           <p><?php echo Utils::h($record['comment']); ?></p>
