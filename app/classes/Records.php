@@ -20,9 +20,6 @@ class Records {
         // 拡張子をチェックしてjpg,jpeg,png,heic,gifのみアップロード許可
         $file_exts = strtolower(pathinfo($_FILES['upload_image']['name'], PATHINFO_EXTENSION));
         $allow_exts = ['jpg', 'jpeg', 'png', 'gif', 'heic'];
-        // if ($file_exts === 'heic') {
-        //   $file_exts = 'jpg';
-        // }
         $exts_res = in_array($file_exts, $allow_exts);
 
         if ($exts_res === true) {
@@ -30,6 +27,19 @@ class Records {
           $image_pass = __DIR__ . "/../../public/image/$image_name";
           $image_pass_for_db = "image/$image_name";
           $upload_res = move_uploaded_file($_FILES['upload_image']['tmp_name'], $image_pass);
+
+
+
+          // 500kbを超えていたらリサイズ
+          if ($_FILES['upload_image']['size'] > 500000) {
+            list($src_w, $src_h) = getimagesize($image_pass);
+            $new_w = $src_w * 0.2;
+            $new_h = $src_h * 0.2;
+            $baseimage = imagecreatefromjpeg($image_pass);
+            $new_image = imagecreatetruecolor($new_w, $new_h);
+            imagecopyresampled($new_image, $baseimage, 0, 0, 0, 0, $new_w, $new_h, $src_w, $src_h);
+            imagejpeg($new_image, $image_pass, 50);
+          }
 
           // 画像をサーバーに保存できたらデフォルトの画像からアップロードされた画像に更新
           if ($upload_res === true) {

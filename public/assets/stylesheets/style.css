@@ -146,7 +146,7 @@ input {
 }
 
 textarea {
-  border: 2px solid #fff;
+  border: 2px solid darkturquoise;
   background-color: #fff;
   font-size: 1rem;
   display: block;
@@ -167,6 +167,7 @@ textarea:focus {
   background-color: #fff;
   border-radius: 1rem;
   border: 1px solid darkturquoise;
+  padding-top: 1rem;
 }
 
 .card .created-day {

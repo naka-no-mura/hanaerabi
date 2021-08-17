@@ -1,5 +1,4 @@
 <?php
-
 require_once(__DIR__ . '/../app/config/config.php');
 
 $title = '季節を選ぶ';
