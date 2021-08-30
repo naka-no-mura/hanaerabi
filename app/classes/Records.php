@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+// 詳細。編集、削除が本人かどうかを確認処理を共通化（sessionと受け取ったuser_idが等しいか）
 class Records {
 
   public static function createRecord($pdo) {
