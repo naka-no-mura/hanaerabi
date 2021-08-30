@@ -12,40 +12,9 @@ $res = Records::createRecord($pdo);
 Users::getUserIdFromLineIdToken($pdo);
 
 // user_idに紐づいた記録を全て取得
-$records = Records::gerRecords($pdo);
+$records = Records::getRecords($pdo);
 
-
-
-
-
-    // 削除
-    $delete_id = filter_input(INPUT_POST, 'delete');
-
-    if (!empty($delete_id)) {
-        $stmt = $pdo->prepare('SELECT user_id FROM records WHERE id = :id');
-        $stmt->bindValue(':id', $delete_id, PDO::PARAM_INT);
-        $stmt->execute();
-        $res = $stmt->fetch();
-        $user_id = $res['user_id'];
-
-        if ($res === false) {
-          header('Location: records.php');
-          return $res['success'] = '該当の記録は見つかりませんでした';
-        }
-
-      // ログイン中のユーザーからのDELETEであれば処理を実行
-      if ($user_id === $_SESSION['user_id']) {
-        $stmt = $pdo->prepare('DELETE FROM records WHERE id = :id');
-        $stmt->bindValue('id', $delete_id, PDO::PARAM_INT);
-        $stmt->execute();
-        header ('Location: records.php');
-        $res['success'] = '記録を削除しました';
-      } else {
-        return $res['error'] = '削除できるのは自分の記録のみです';
-      }
-    }
-
-
+Records::deleteRecord($pdo);
 
 ?>
 <!DOCTYPE html>
