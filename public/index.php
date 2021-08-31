@@ -24,7 +24,6 @@
       liff.login()
       }
       const idToken = liff.getIDToken();
-      console.log(idToken);
     })
   </script>
 </body>

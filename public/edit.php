@@ -87,10 +87,10 @@ Records::UpdateRecord($pdo);
     })
   </script>
   <script>
-function confirm_delete() {
-    var select = confirm("この記録を削除しますか？一度削除したら復元できません。");
-    return select;
-}
+    function confirm_delete() {
+      var select = confirm("この記録を削除しますか？一度削除したら復元できません。");
+      return select;
+    }
 </script>
 </body>
 </html>

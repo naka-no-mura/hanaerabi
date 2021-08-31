@@ -54,24 +54,14 @@ $selected_meaning = Flowers::getMeaning();
       liff.getProfile()
         .then(profile => {
           const name = profile.displayName
-          console.log(name);
           $.ajax({
             type: "POST",
             url: "item.php",
             data: {
               line_name: name
-            },
-            success:function(data) {
-              console.log(data);
-            },
-            error:function(XMLHttpRequest, textStatus, errorThrown) {
-              console.log(XMLHttpRequest);
             }
           })
         })
-        .catch((err) => {
-          console.log('error', err);
-        });
       })
     })
   </script>

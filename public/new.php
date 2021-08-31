@@ -67,12 +67,6 @@ Users::getUserIdFromLineIdToken($pdo);
           url: "new.php",
           data: {
             id_token: idToken
-          },
-          success:function(data) {
-            console.log(data);
-          },
-          error:function(XMLHttpRequest, textStatus, errorThrown) {
-            console.log(XMLHttpRequest);
           }
         })
       })
